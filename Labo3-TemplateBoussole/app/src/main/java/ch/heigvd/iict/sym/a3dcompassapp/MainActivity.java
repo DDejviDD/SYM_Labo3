@@ -63,11 +63,55 @@ public class MainActivity extends AppCompatActivity {
                 //Toast indicatif + Creation d'un Intent afin de start une nouvelle activité
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(MainActivity.this, activity_bar.class);
+                Intent intent = new Intent(MainActivity.this, BarActivity.class);
                 MainActivity.this.startActivity(intent);
             }
-
         });
 
+        buttObjIBeacon.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Toast indicatif + Creation d'un Intent afin de start une nouvelle activité
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MainActivity.this, BeaconActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+        buttObjCompass.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Toast indicatif + Creation d'un Intent afin de start une nouvelle activité
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MainActivity.this, CompassActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+
+        buttObjNFC.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Toast indicatif + Creation d'un Intent afin de start une nouvelle activité
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MainActivity.this, NFCActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+        buttObjQR.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Toast indicatif + Creation d'un Intent afin de start une nouvelle activité
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(MainActivity.this, QRActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 }
