@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Labo3 - 3D Compass template</string>
+    <string name="app_name">SYM - Use of environmental data</string>
     <string name="main_butt_bar">Bar Code</string>
     <string name="main_butt_beacon">iBeacon</string>
     <string name="main_butt_compass">Compass</string>
