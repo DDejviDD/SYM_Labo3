@@ -8,5 +8,5 @@
         android:id="@+id/button_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_butt_bar" />
+        android:text="@string/button_bar_activity" />
 </LinearLayout>
