@@ -21,13 +21,13 @@ public class BarActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_bar);
 
         scanningButton = findViewById(R.id.button_bar);
-        final Activity activity = this;
+        final Activity activity = this; // a reference to the actual Activity
 
 
         scanningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new IntentIntegrator(activity).initiateScan(); // `this` is the current Activity
+                new IntentIntegrator(activity).initiateScan(); // references the current Activity
             }
         });
     }

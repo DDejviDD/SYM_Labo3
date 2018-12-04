@@ -9,5 +9,9 @@
     <string name="good">Next Activity</string>
 
     <string name="button_bar_activity">Read bar code</string>
+    <string name="button_beacon_activity">Start detection of beacon entities</string>
+    <string name="listView_beacon_activity">List of beacon entities</string>
+    <string name="textView_beacon_activity">Text of beacon entities</string>
+
 
 </resources>

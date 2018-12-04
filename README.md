@@ -39,6 +39,10 @@ Grâce aux ressources en libre accès :
 Les iBeacons sont très souvent présentés comme une alternative à NFC. 
 Pouvez-vous commenter cette affirmation en vous basant sur 2-3 exemples de cas d’utilisations (use-cases) concrets (par exemple epaiement, second facteur d’identification, accéder aux horaires à un arrêt de bus, etc.).
 
+**Premierement pour que celle-ci fonctionne correctement il faut obligatoirement demander les permissions de géo- localiser l’utilisateur6 et d’accès à Internet, attention à bien vérifier aussi que le Bluetooth est activé.**
+
+L’objectif est de lister sur une activité les différents iBeacons à proximité. 
+
 ## 5.2 Questions Capteurs
 Une fois la manipulation effectuée, vous constaterez que les animations de la flèche ne sont pas fluides, il va y avoir un tremblement plus ou moins important même si le téléphone ne bouge pas. Veuillez expliquer quelle est la cause la plus probable de ce tremblement et donner une manière (sans forcément l’implémenter) d’y remédier.
 

@@ -3,4 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/button_beacon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_beacon_activity" />
+
+    <ListView
+        android:id="@+id/listview_beacon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/listView_beacon_activity"/>
+
+    <TextView
+        android:id="@+id/textview_beacon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textView_beacon_activity"/>
+
 </LinearLayout>
