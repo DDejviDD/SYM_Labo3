@@ -5,14 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class BarActivity  extends AppCompatActivity implement{
+public class BarActivity  extends AppCompatActivity {
 
     private Button scanningButton;
 
     @Override
     protected void onCreate(Bundle instanceState) {
         super.onCreate(instanceState);
-        setContentView(android.R.layout.);
+        setContentView(R.layout.activity_bar);
 
         scanningButton = findViewById(R.id.button_bar);
 

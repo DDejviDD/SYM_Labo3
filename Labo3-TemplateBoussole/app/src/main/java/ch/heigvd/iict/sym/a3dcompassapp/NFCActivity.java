@@ -1,4 +1,6 @@
 package ch.heigvd.iict.sym.a3dcompassapp;
 
-class NFCActivity {
+import android.support.v7.app.AppCompatActivity;
+
+public class NFCActivity extends AppCompatActivity {
 }
