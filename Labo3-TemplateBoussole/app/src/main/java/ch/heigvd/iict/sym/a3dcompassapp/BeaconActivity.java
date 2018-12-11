@@ -120,7 +120,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        beaconManager.unbind((BeaconConsumer) activity);
+        beaconManager.unbind(this);
     }
 
 
@@ -133,7 +133,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     @Override
     protected void onResume() {
         super.onResume();
-        beaconManager.bind(this);
+        //beaconManager.bind(this);
     }
 
     @Override
@@ -174,8 +174,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_COARSE_LOCATION: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {

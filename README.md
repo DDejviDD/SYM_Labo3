@@ -89,7 +89,8 @@ Dans ces différents cas, les iBeacon s'averent être une alternative très int�
 
 
 ## 5.2 Questions Capteurs
-Une fois la manipulation effectuée, vous constaterez que les animations de la flèche ne sont pas fluides, il va y avoir un tremblement plus ou moins important même si le téléphone ne bouge pas. Veuillez expliquer quelle est la cause la plus probable de ce tremblement et donner une manière (sans forcément l’implémenter) d’y remédier.
-
-La sensibilité des capteurs ?
+On se rend compte que, lorsque l'on essaie la boussole, les animations de mouvement de la flèche ne sont pas fluides. Ce tremblement peut s'expliquer par différent facteurs dont les suivants:
+- Premièrement, le capteur de mouvement, soit l'acceléromètre est toujours en train de detecter le mouvement de la planète ce qui va le souvent modifier sa matrice de coordonées même lorsque ceci n'est pas nécessaire et perturbé la vraie détéction de mouvements.
+- Ensuite, le magnétomètre qui permet de se positionnner par rapport au pôle nord magnétique, lui est encore plus sensible é l'environnement. Les masses métallique, aimant, ou tout autre élément dégageant un champ magnétique peut facilement le faire changer de trajectoire.
+- Enfin, la précision des capteurs d'un téléphone est très mauvaise, selon la gamme du téléphone elle peut être relativement précise ou pratiquement inutilisable. Le temps de raffraichissement de l'écran par rapport au temps de raffraichissement des capteurs va également provoque un tremblement si celui-ci n'est pas un minimum synchronisé.
 
