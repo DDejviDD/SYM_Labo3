@@ -89,21 +89,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".QRActivity"
-            android:screenOrientation="portrait"
-            android:label="QR Code">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="MainActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
 
     </application>
 

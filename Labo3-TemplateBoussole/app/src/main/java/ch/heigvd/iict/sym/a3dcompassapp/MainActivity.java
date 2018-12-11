@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         buttObjIBeacon  = findViewById(R.id.main_butt_beacon);
         buttObjCompass  = findViewById(R.id.main_butt_compass);
         buttObjNFC      = findViewById(R.id.main_butt_nfc);
-        buttObjQR       = findViewById(R.id.main_butt_qr);
 
         // Give buttons an action
         buttObjBAR.setOnClickListener(new View.OnClickListener() {
@@ -98,17 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(MainActivity.this, NFCActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
-        buttObjQR.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //Toast indicatif + Creation d'un Intent afin de start une nouvelle activité
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.good), Toast.LENGTH_LONG).show();
-
-                Intent intent = new Intent(MainActivity.this, QRActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });

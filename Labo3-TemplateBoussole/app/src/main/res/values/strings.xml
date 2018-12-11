@@ -5,7 +5,6 @@
     <string name="main_butt_beacon">iBeacon</string>
     <string name="main_butt_compass">Compass</string>
     <string name="main_butt_nfc">NFC</string>
-    <string name="main_butt_qr">QR Code</string>
     <string name="good">Next Activity</string>
 
     <string name="button_bar_activity">Read bar code</string>

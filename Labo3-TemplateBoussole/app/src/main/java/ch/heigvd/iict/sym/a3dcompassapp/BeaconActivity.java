@@ -148,8 +148,8 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
                     while(beaconIterator.hasNext()) {
                         Beacon current = (Beacon) beaconIterator.next();
                         logToDisplay("Beacon detected :" + "\n" + "RSSI : " + current.getRssi() + "\n" +
-                                " Distance : " + current.getDistance() + " meters away."  + "\n" + "Minor : "
-                                + current.getId2() + "Major : " + current.getId3());
+                                "Distance : " + current.getDistance() + " meters away."  + "\n" + "Minor : "
+                                + current.getId2() + "\n" + "Major : " + current.getId3());
                     }
                 }
             }
@@ -167,7 +167,7 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
     private void logToDisplay(final String line) {
         runOnUiThread(new Runnable() {
             public void run() {
-                text.append(line+"\n");
+                text.setText(line+"\n"+text.getText().toString());
             }
         });
     }

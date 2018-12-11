@@ -28,11 +28,5 @@
         android:layout_height="wrap_content"
         android:text="@string/main_butt_nfc" />
 
-    <Button
-        android:id="@+id/main_butt_qr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/main_butt_qr" />
-
 
 </LinearLayout>
