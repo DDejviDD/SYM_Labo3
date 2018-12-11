@@ -27,6 +27,7 @@ import org.altbeacon.beacon.Region;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -142,9 +143,14 @@ public class BeaconActivity extends AppCompatActivity implements BeaconConsumer 
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 if (beacons.size() > 0) {
-                    Log.d(TAG, "didRangeBeaconsInRegion called with beacon count:  "+ beacons.size());
-                    Beacon firstBeacon = beacons.iterator().next();
-                    logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away.");
+                    Log.d(TAG, "Beacons detected:  "+ beacons.size());
+                    Iterator beaconIterator = beacons.iterator();
+                    while(beaconIterator.hasNext()) {
+                        Beacon current = (Beacon) beaconIterator.next();
+                        logToDisplay("Beacon detected :" + "\n" + "RSSI : " + current.getRssi() + "\n" +
+                                " Distance : " + current.getDistance() + " meters away."  + "\n" + "Minor : "
+                                + current.getId2() + "Major : " + current.getId3());
+                    }
                 }
             }
 
