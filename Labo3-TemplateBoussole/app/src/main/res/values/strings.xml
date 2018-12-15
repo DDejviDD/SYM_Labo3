@@ -12,5 +12,16 @@
     <string name="listView_beacon_activity">List of beacon entities</string>
     <string name="textView_beacon_activity">Text of beacon entities</string>
 
+    <string name="enter_username_hint">Username</string>
+    <string name="enter_password_hint">Password</string>
+    <string name="connect_button_text">Connect</string>
+    <string name="mim_type_nfc">text/plain</string>
+    <string name="max_security_nfc">MAX SECURITY</string>
+    <string name="medium_security_nfc">MEDIUM SECURITY</string>
+    <string name="low_security_nfc">LOW SECURITY</string>
+    <string name="access_with_sufficient_privileges">ACCES GUARANTEED !</string>
+    <string name="access_without_sufficient_privileges">Bad Security Level, try to re-use your NFC card</string>
+
+
 
 </resources>

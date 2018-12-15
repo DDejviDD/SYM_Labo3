@@ -12,90 +12,108 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// This code is greatly inspired by : https://code.tutsplus.com/tutorials/reading-nfc-tags-with-android--mobile-17278
-public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
+public class AuthNFCActivity extends AppCompatActivity implements ActivityWithNFC {
 
     public static final String TAG = "test";
     public static final String MIME_TEXT_PLAIN = "text/plain";
 
     private NfcAdapter mNfcAdapter;
-    private EditText username;
-    private EditText password;
-    private Button connect;
-    private TextView NFCtimer;
-    private int NFCounter = -1;
+    private Button maxSecurity;
+    private Button mediumSecurity;
+    private Button lowSecurity;
+    private TextView securityLevelField;
+    private Boolean maxPrivileges = true;
+    private Boolean mediumPrivileges = true;
+    private Boolean lowPrivileges = true;
     private CountDownTimer countDown;
+    private int securityLevel = AUTHENTICATE_MAX;
 
-    private static final int MAX_DELAY_ALLOWED = 60 * 1000;
-    private static final String dummyUsername = "Hector";
-    private static final String dummyPassword = "LeCastor";
+    private static final int INITIAL_TIME = 60 * 1000;
+    private static final int COUNTDOWN_INTERVAL = 6 * 1000;
+    private static final int AUTHENTICATE_MAX = 10;
+    private static final int AUTHENTICATE_MEDIUM = 6;
+    private static final int AUTHENTICATE_LOW = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nfc);
+        setContentView(R.layout.activity_nfc_auth);
 
-        // Map attribute to the views elements
-        NFCtimer = findViewById(R.id.nfctimer);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        connect = findViewById(R.id.buttonConnect);
+        // Link UI element to the activity
+        maxSecurity = findViewById(R.id.buttonMaxSecurity);
+        mediumSecurity = findViewById(R.id.buttonMediumSecurity);
+        lowSecurity = findViewById(R.id.buttonLowSecurity);
+        securityLevelField = findViewById(R.id.nfcSecurityLevel);
 
-        // Control if the NFC is available
+
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (mNfcAdapter == null) {
-            // Stop here, we definitely need NFC
-            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-            finish();
-            return;
 
-        }
-        if (!mNfcAdapter.isEnabled()) {
-            NFCtimer.setText("NFC is disabled.");
-        }
+        handleIntent(getIntent());
 
-        countDown = new CountDownTimer(MAX_DELAY_ALLOWED, 1000) {
+        // Set and launch our countDown
+        securityLevelField.setText("Security Level: " + String.valueOf(securityLevel));
+        countDown = new CountDownTimer(INITIAL_TIME, COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long l) {
-                NFCtimer.setText(String.valueOf(--NFCounter));
+                securityLevelField.setText("Security Level: " + String.valueOf(--securityLevel));
+                if (securityLevel > AUTHENTICATE_MEDIUM) {
+                    maxPrivileges = true;
+                    mediumPrivileges = true;
+                    lowPrivileges = true;
+                } else if (securityLevel > AUTHENTICATE_LOW) {
+                    maxPrivileges = false;
+                    mediumPrivileges = true;
+                    lowPrivileges = true;
+                } else {
+                    maxPrivileges = false;
+                    mediumPrivileges = false;
+                    lowPrivileges = true;
+                }
             }
 
             @Override
             public void onFinish() {
-                NFCtimer.setText("Too late, you must re-use your NFC card");
-                NFCounter = -1; // Just in case
+                maxPrivileges = false;
+                mediumPrivileges = false;
+                lowPrivileges = false;
+                securityLevelField.setText("You have no more permission, re-use your NFC card");
             }
         };
+        countDown.start();
 
-        handleIntent(getIntent());
-
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
+        // Buttons click event management
+        maxSecurity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Check the max delay between the reading of the NFC card and the login attempt
-                if (NFCounter > 0) {
-                    // Check the credentials
-                    if (username.getText().equals(dummyUsername) && password.getText().equals(dummyPassword)) {
-                        Toast.makeText(NFCActivity.this, "Authentication is well done !", Toast.LENGTH_LONG).show();
-                        // Start nested activity
-                        Intent intent = new Intent(NFCActivity.this, AuthNFCActivity.class);
-                        startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(NFCActivity.this, "Your credentials are incorrect", Toast.LENGTH_LONG).show();
+                if(maxPrivileges)
+                    Toast.makeText(AuthNFCActivity.this, R.string.access_with_sufficient_privileges , Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(AuthNFCActivity.this, R.string.access_without_sufficient_privileges , Toast.LENGTH_LONG).show();
+            }
+        });
 
-                    }
-                }
-                else {
-                    Toast.makeText(NFCActivity.this, "You must use an NFC card before using the connect button", Toast.LENGTH_LONG).show();
-                }
+        mediumSecurity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(mediumPrivileges)
+                    Toast.makeText(AuthNFCActivity.this, R.string.access_with_sufficient_privileges , Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(AuthNFCActivity.this, R.string.access_without_sufficient_privileges , Toast.LENGTH_LONG).show();
+            }
+        });
+
+        lowSecurity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(lowPrivileges)
+                    Toast.makeText(AuthNFCActivity.this, R.string.access_with_sufficient_privileges , Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(AuthNFCActivity.this, R.string.access_without_sufficient_privileges , Toast.LENGTH_LONG).show();
             }
         });
     }
+
 
     @Override
     protected void onResume() {
@@ -174,14 +192,20 @@ public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
     }
 
 
-    // Method from our interface ActivityWithNfc
+
+    // The interface method (the after NFC tag reading behavior of the activity)
     @Override
     public void doThisWhenNfcTagRead(String readingResult) {
-        NFCounter = 60;
-        NFCtimer.setText(String.valueOf(NFCounter));
         countDown.cancel();
-        countDown.start();
 
+        maxPrivileges = true;
+        mediumPrivileges = true;
+        lowPrivileges = true;
+
+        securityLevel = AUTHENTICATE_MAX;
+        securityLevelField.setText("Security Level: " + String.valueOf(securityLevel));
+
+        countDown.start();
     }
 
 }
