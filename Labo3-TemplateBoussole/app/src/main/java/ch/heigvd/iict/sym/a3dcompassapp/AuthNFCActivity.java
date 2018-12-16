@@ -196,16 +196,20 @@ public class AuthNFCActivity extends AppCompatActivity implements ActivityWithNF
     // The interface method (the after NFC tag reading behavior of the activity)
     @Override
     public void doThisWhenNfcTagRead(String readingResult) {
-        countDown.cancel();
+        if (readingResult.equals(TAG)) {
+            countDown.cancel();
 
-        maxPrivileges = true;
-        mediumPrivileges = true;
-        lowPrivileges = true;
+            maxPrivileges = true;
+            mediumPrivileges = true;
+            lowPrivileges = true;
 
-        securityLevel = AUTHENTICATE_MAX;
-        securityLevelField.setText("Security Level: " + String.valueOf(securityLevel));
+            securityLevel = AUTHENTICATE_MAX;
+            securityLevelField.setText("Security Level: " + String.valueOf(securityLevel));
 
-        countDown.start();
+            countDown.start();
+        }
+        else {
+            Toast.makeText(AuthNFCActivity.this, "Your NFC tag is incorrect !", Toast.LENGTH_LONG).show();
+        }
     }
-
 }
