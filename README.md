@@ -1,21 +1,39 @@
-# Systèmes mobiles
-## Laboratoire n°3 : Utilisation de données environnementales
-
+# Systèmes mobiles  
+## Laboratoire n°3 : Utilisation de données environnementales  
 > Auteurs : Loic Frueh - Koubaa Walid - Muaremi Dejvid   
 > Enseignant : Fabien Dutoit   
 > Assistants : Christophe Greppin, Valentin Minder   
 > Date : 27.11.2018  
 
-## 2.4 Questions Balises NFC
-A partir de l’API Android concernant les tags NFC4, pouvez-vous imaginer une autre approche pour rendre plus compliqué le clonage des tags NFC ?
-Est-ce possible sur toutes les plateformes (Android et iOS) ? 
-Existe-il des limitations ? 
-Voyez-vous d’autres possibilités ?
+## 2.4 Questions Balises NFC  
+Nous utilisons des tags NFC4 contenant des messages au format **[NDEF](https://gototags.com/nfc/ndef/ "NFC Data Exchange Format")**, ce format est supporté par la magorité des appareils utilisant la technologie NFC et certaines opperations basique peuvent être effectuée dessus comme la lecture mais aussi l'écriture par conséquent, sans une sécuritée prévue a cet effet, il est très facile de cloner un tag NFC.  
+
+**Notre implementation**
+Nous avons 10 niveau de sécurité différens pour notre applications, comme proposé dans la données, celui-ci décroit toutes les 6 secondes. Ceci laisse à l'utilisateur 60 secondes pour se loger. À tout moment on peut repasser le NFC tag pour remettre le sécurity niveau maximumm, c'est a dire 10, et réinitialiser le compteur, à 60 secondes.
+
+Nous avons défini 4 états de sécurité pour nos boutons : 
+- High security, demande au minimum un niveau d'accréditation à 7.  
+- Medium security, demande au minimum un niveau d'accréditation à 4.  
+- Low security, demande au minimum un niveau d'accréditation à 1. 
+- À 0, l'utulisateur n'a plus aucun droit sur les bouttons, il doit repasser le NFC tag.
+
+**A partir de l’API Android concernant les tags NFC4, pouvez-vous imaginer une autre approche pour rendre plus compliqué le clonage des tags NFC ?**  
+Une possibilité de se protéger contre la copie d'un tag NFC serait l'utilisation de l'ID unique de celui-ci qui nous permettrait à l'aide d'un service qui les listes d'authentifier et de valider nos tags. Cependant, comme cet id est modifiable, cela ne constitue pas une sécurité parfaite et il faut imaginer d'autres solutions plus complexe.
+
+**Est-ce possible sur toutes les plateformes (Android et iOS) ?**   
+Android : Depuis l'API 10
+iOS : Depuis iOS 11
+
+**Existe-il des limitations ?**   
+Sur android très peu étant donné que la technologie est utilisée depuis l'API 10 et qu'elle a eu le temps d'évolué au fil des versions.
+Cependant, sur Apple, c'est une technologie naissante et l'accès à celle-ci est très limité par Apple. Actuellement il est surtout possible de detecter un tag NFC et lire les données NDEF, il faut que les données soient bien encodée pour que celà fonctionne, mais l'écriture n'est pas possible. Tout ceci se fait via le framework **[Core NFC](https://developer.apple.com/documentation/corenfc "Documentation officielle par Apple")**
+
+**Voyez-vous d’autres possibilités ?**  
+L'idéal serait d'utiliser l'un des cannal sécurisé de la balise NFC. Ceci permet de se proteger contre la plupart des attaques possible comme par exemple une lecture non autorisée et par conséquent empécher la copie.
+Pour plus d'informations sur le sujet, voir le site suivant : **[NFC secure Channel](https://www.electronics-notes.com/articles/connectivity/nfc-near-field-communication/security.php "Utilisation du secure channel pour proteger ses cartes NFC")**
 
 ## 3.2 Questions Codes-barres
-
 Un code-barres, ou code à barres, est la représentation d'une donnée numérique ou alphanumérique sous forme d'un symbole constitué de barres et d'espaces dont l'épaisseur varie en fonction de la symbologie utilisée et des données ainsi codées. Il existe des milliers de codes-barres différents ; ceux-ci sont destinés à une lecture automatisée par un capteur électronique, le lecteur de code-barres. Pour l'impression des codes-barres, les technologies les plus utilisées sont l'impression laser et le transfert thermique.
-
 
 Grâce aux ressources en libre accès suivantes on peut implementer facilement une activité pouvant lire des codes barres ou des codes QR:
 
@@ -52,31 +70,21 @@ En ce qui concerne le recyclage, bien évidement les NFC sont reconfigurables/re
 **Les iBeacons sont très souvent présentés comme une alternative à NFC. Pouvez-vous commenter cette affirmation en vous basant sur 2-3 exemples de cas d’utilisations (use-cases) concrets (par exemple e- paiement, second facteur d’identification, accéder aux horaires à un arrêt de bus, etc.).**
 
 ### Les e-paiements
-
-
-Concretement les iBeacons ne sont en fait que des trames bluetooth diffusées en broadcast de facon régulière. La communication ne se fait que dans un sens et donc toute authentication, établissement de connexion, ou bien dialogue entre le mobile du client et la balise beacon est tout simplement impossible.
-En pratique il est assez difficile de concevoir un moyen de payement avec des iBeacons.
+Concretement les iBeacons ne sont en fait que des trames bluetooth diffusées en broadcast de facon régulière. La communication ne se fait que dans un sens et donc toute authentication, établissement de connexion, ou bien dialogue entre le mobile du client et la balise beacon est tout simplement impossible. En pratique il est assez difficile de concevoir un moyen de payement avec des iBeacons.
 
 Une alternative potentielle serait d'envoyer au client un lien vers une application propre à l'entreprise qui elle se chargera de gerer le paiement.
 
 A l'inverse la technologie NFC permet d'établir une connexion entre un mobile et un tag NFC, connexion suffisamment sécurisée et authentiée, pour effectuer un paiement sans contact.
 
-Donc pour des e-paiement, les iBeacons ne représentent pas une alternative viable au NFC. Leur simple principe de fonctionnement en est la cause, une amélioration et/ou un changement
-de leur fonctionnement/implémentation semble par ailleurs peu probable.
+Donc pour des e-paiement, les iBeacons ne représentent pas une alternative viable au NFC. Leur simple principe de fonctionnement en est la cause, une amélioration et/ou un changement de leur fonctionnement/implémentation semble par ailleurs peu probable.
 
 ### Le contrôle d'accès
-
 De nos jours, la plupart des PME disposent d'un système pour contrôler l'accès à leurs locaux. Dans ce cas la comparaison entre NFC et iBeacon revient à peu près au même que celle des e-paiement.
 
-- Avec les beacons, une authentication est impossible (voir plus haut). La seule possibilité est donc que
-l'utilisateur reçoive un iBeacon à l'approche d'une porte. Cet iBeacon devrait contenir un
-lien (genreré) vers une application permettant à l'utilisateur d'acceder à la porte donnée.
-- Avec le NFC en revanche, une authentication directe entre la carte d'accès et la porte est possible.
-Pas besoin donc de manipulation supplémentaire ou autre.
-En conclusion, encore une fois les beacons ne représentent pas une alternative viable au NFC.
+- Avec les beacons, une authentification est impossible (voir plus haut). La seule possibilité est donc que l'utilisateur reçoive un iBeacon à l'approche d'une porte. Cet iBeacon devrait contenir un lien (genreré) vers une application permettant à l'utilisateur d'acceder à la porte donnée.
+- Avec le NFC en revanche, une authentification directe entre la carte d'accès et la porte est possible. Pas besoin donc de manipulation supplémentaire ou autre. En conclusion, encore une fois les beacons ne représentent pas une alternative viable au NFC.
 
 ### Les horaires de bus
-
 Une idée serait placer des balises émettant des iBeacons aux arrêts de bus ou devant des oeuvres au musée ou bien devant chaque animal dans un zoo. Ceux-ci permettraient à un utilisateur ou à un visiteur de découvrir un lien sur son téléphone en s'approchant du lieu concerné.
 
 - Dans le cas d'un arrêt de bus, on peutimaginer que l'usager reçoit un lien vers le site internet où se trouvent les horaires pour cet arrêt.
@@ -84,9 +92,6 @@ Une idée serait placer des balises émettant des iBeacons aux arrêts de bus ou
 -  Dans le cas du zoo, à chaque fois qu'un utilisateur s'approche d'une zone contenant un animal, un lien dirrigerait vers une page contenant les informations concernant cet animal ( sous forme d'une page wikipédia ou bien paragraphe détaillé d' informations utiles concernant l'animal à proximité).
 
 Dans ces différents cas, les iBeacon s'averent être une alternative très intéressante car ils permettent une meilleure diffusion de l'information sans que l'utilisateur ait besoin d'installer une application spécique sur son téléphone.
-
-
-
 
 ## 5.2 Questions Capteurs
 On se rend compte que, lorsque l'on essaie la boussole, les animations de mouvement de la flèche ne sont pas fluides. Ce tremblement peut s'expliquer par différent facteurs dont les suivants:
