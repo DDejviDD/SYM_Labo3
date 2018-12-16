@@ -61,7 +61,7 @@ public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
         countDown = new CountDownTimer(MAX_DELAY_ALLOWED, 1000) {
             @Override
             public void onTick(long l) {
-                NFCtimer.setText(String.valueOf(--NFCounter));
+                NFCtimer.setText("You have " + String.valueOf(--NFCounter) + " seconds left to log in");
             }
 
             @Override
@@ -91,7 +91,7 @@ public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
                     }
                 }
                 else {
-                    Toast.makeText(NFCActivity.this, "You must use an NFC card before using the connect button", Toast.LENGTH_LONG).show();
+                    Toast.makeText(NFCActivity.this, "You must use an NFC card before clicking on the connect button", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -179,7 +179,7 @@ public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
     public void doThisWhenNfcTagRead(String readingResult) {
         if (readingResult.equals(TAG)) {
             NFCounter = 60;
-            NFCtimer.setText(String.valueOf(NFCounter));
+            NFCtimer.setText("You have " + String.valueOf(NFCounter) + " seconds left to log in");
             countDown.cancel();
             countDown.start();
         }
