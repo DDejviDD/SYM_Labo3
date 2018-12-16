@@ -79,7 +79,7 @@ public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
                 // Check the max delay between the reading of the NFC card and the login attempt
                 if (NFCounter > 0) {
                     // Check the credentials
-                    if (username.getText().equals(dummyUsername) && password.getText().equals(dummyPassword)) {
+                    if (username.getText().toString().equals(dummyUsername.toString()) && password.getText().toString().equals(dummyPassword)) {
                         Toast.makeText(NFCActivity.this, "Authentication is well done !", Toast.LENGTH_LONG).show();
                         // Start nested activity
                         Intent intent = new Intent(NFCActivity.this, AuthNFCActivity.class);
