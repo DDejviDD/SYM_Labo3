@@ -177,10 +177,15 @@ public class NFCActivity extends AppCompatActivity implements ActivityWithNFC {
     // Method from our interface ActivityWithNfc
     @Override
     public void doThisWhenNfcTagRead(String readingResult) {
-        NFCounter = 60;
-        NFCtimer.setText(String.valueOf(NFCounter));
-        countDown.cancel();
-        countDown.start();
+        if (readingResult.equals(TAG)) {
+            NFCounter = 60;
+            NFCtimer.setText(String.valueOf(NFCounter));
+            countDown.cancel();
+            countDown.start();
+        }
+        else {
+            Toast.makeText(NFCActivity.this, "Your NFC tag is incorrect !", Toast.LENGTH_LONG).show();
+        }
 
     }
 
